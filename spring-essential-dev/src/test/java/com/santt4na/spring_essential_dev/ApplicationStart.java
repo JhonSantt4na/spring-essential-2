@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 @SpringBootApplication
 @ComponentScan
-@Configuration // -> serve para scanear tmb mas com configs adicionais
+@Configuration
 public class ApplicationStart {
 
 	public static void main(String[] args) {
