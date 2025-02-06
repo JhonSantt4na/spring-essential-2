@@ -1,4 +1,4 @@
-package com.santt4na.spring_essential_dev.util;
+package com.santt4na.util;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

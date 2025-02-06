@@ -1,4 +1,4 @@
-package com.santt4na.spring_essential_dev.services;
+package com.santt4na.services;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.santt4na.spring_essential_dev.domain.Anime;
+import com.santt4na.domain.Anime;
 
 @Service
 public class AnimeService {

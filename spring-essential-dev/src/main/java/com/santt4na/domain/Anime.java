@@ -1,4 +1,4 @@
-package com.santt4na.spring_essential_dev.domain;
+package com.santt4na.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

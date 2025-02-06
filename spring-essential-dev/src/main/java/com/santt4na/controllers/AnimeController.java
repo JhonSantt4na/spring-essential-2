@@ -1,4 +1,4 @@
-package com.santt4na.spring_essential_dev.controllers;
+package com.santt4na.controllers;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.santt4na.spring_essential_dev.domain.Anime;
-import com.santt4na.spring_essential_dev.services.AnimeService;
-import com.santt4na.spring_essential_dev.util.DateUtil;
+import com.santt4na.domain.Anime;
+import com.santt4na.services.AnimeService;
+import com.santt4na.util.DateUtil;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
