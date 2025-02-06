@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,19 +45,15 @@ public class AnimeController {
       return ResponseEntity.ok(animeService.findById(id));
    }
 
-   // Se tiver somente um o spring vai mapear automaticamente todas as requisição
-   // post pra esse methodo.
    @PostMapping
-   // @ResponseStatus(HttpStatus.CREATED) forma opcional
    public ResponseEntity<Anime> save(@RequestBody Anime anime) {
-      // @JsonPropeties("exemplo") Caso não tenha mapeado corretamente ele ignora
-
       return new ResponseEntity<>(animeService.save(anime), HttpStatus.CREATED);
-      /*
-       * Existe muitos lugares que voce so recebe uma resosta 201
-       * Existe padrão que voce retorna o objeto
-       * Existe Padrão que vc retorna somente um id do item criado
-       */
    }
 
+   @DeleteMapping(path = "/{id}")
+   public ResponseEntity<Anime> delete(@PathVariable long id) {
+      animeService.delete(id);
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+   }
+   // Methodos Idepontent end Save methods significados
 }
