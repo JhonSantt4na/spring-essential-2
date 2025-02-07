@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("animes")
@@ -34,11 +35,7 @@ public class AnimeController {
    public ResponseEntity<List<Anime>> list() {
       log.info(dateUtil.formatLocalTimeDataBaseStyle(LocalDateTime.now()));
       return new ResponseEntity<>(animeService.listAll(), HttpStatus.OK);
-      // HttpStatus.OK informa o status code
-      // ResponseEntity = Siqnificado aqui
    }
-
-   // tendo 2 get no mesmo com vamos dizer a diferença
 
    @GetMapping(path = "/{id}")
    public ResponseEntity<Anime> findById(@PathVariable long id) {
@@ -55,5 +52,10 @@ public class AnimeController {
       animeService.delete(id);
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
    }
-   // Methodos Idepontent end Save methods significados
+
+   @PutMapping
+   public ResponseEntity<Anime> replace(@RequestBody Anime anime) {
+      animeService.replace(anime);
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+   }
 }
