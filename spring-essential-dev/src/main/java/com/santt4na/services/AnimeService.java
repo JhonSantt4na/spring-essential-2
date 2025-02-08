@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.santt4na.domain.Anime;
+import com.santt4na.mapper.AnimeMapper;
 import com.santt4na.repository.AnimeRepository;
 import com.santt4na.requests.AnimePostRequestBody;
 import com.santt4na.requests.AnimePutRequestBody;
@@ -29,7 +30,7 @@ public class AnimeService {
    }
 
    public Anime save(AnimePostRequestBody animePostRequestBody) {
-      return animeRepository.save(Anime.builder().name(animePostRequestBody.getName()).build());
+      return animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));
    }
 
    public void delete(long id) {
@@ -38,10 +39,8 @@ public class AnimeService {
 
    public void replace(AnimePutRequestBody animePutRequestBody) {
       Anime savedAnime = findByIdOrThrowBadRequestException(animePutRequestBody.getId());
-      Anime anime = Anime.builder()
-            .id(savedAnime.getId())
-            .name(animePutRequestBody.getName())
-            .build();
+      Anime anime = AnimeMapper.INSTANCE.toAnime(animePutRequestBody);
+      anime.setId(savedAnime.getId());
       animeRepository.save(anime);
    }
 }
