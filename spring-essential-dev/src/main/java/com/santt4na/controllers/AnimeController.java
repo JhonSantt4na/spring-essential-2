@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.santt4na.domain.Anime;
@@ -43,6 +44,23 @@ public class AnimeController {
       return ResponseEntity.ok(animeService.findByIdOrThrowBadRequestException(id));
    }
 
+   // Ao manter 2 Get com @PathVariable = returna ambiguidade (Não é uma boa
+   // pratica)
+
+   // com o @RequestParam url : http://localhost:8080/animes?name="anime name"
+
+   // Temos alguns atributos ex:
+   // @RequestParam(defaultValue = "") = nome padrão evitando null
+   // @RequestParam(required = false) = não é mais obrigatorio
+   // @RequestParam String name, @RequestParam String id) =
+   // url > http://localhost:8080/animes?name=anime-name&id=1
+   @GetMapping(path = "/{name}")
+   public ResponseEntity<List<Anime>> findByName(@RequestParam String name) {
+      // @RequestParam(name = "name") = esse nome é opcional/ deixando sem o spring
+      // pega o nome do atributo
+      return ResponseEntity.ok(animeService.findByName(name));
+   }
+
    @PostMapping
    public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody animePostRequestBody) {
       return new ResponseEntity<>(animeService.save(animePostRequestBody), HttpStatus.CREATED);
@@ -57,7 +75,7 @@ public class AnimeController {
    @PutMapping
    public ResponseEntity<Anime> replace(@RequestBody AnimePutRequestBody animePutRequestBody) {
       animeService.replace(animePutRequestBody);
-     
+
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
    }
 }

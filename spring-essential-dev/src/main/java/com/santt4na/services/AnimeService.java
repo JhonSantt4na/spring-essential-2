@@ -43,4 +43,8 @@ public class AnimeService {
       anime.setId(savedAnime.getId());
       animeRepository.save(anime);
    }
+
+   public List<Anime> findByName(String name) {
+      return animeRepository.findByName(name);
+   }
 }
