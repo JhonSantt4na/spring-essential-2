@@ -43,21 +43,9 @@ public class AnimeController {
    public ResponseEntity<Anime> findById(@PathVariable long id) {
       return ResponseEntity.ok(animeService.findByIdOrThrowBadRequestException(id));
    }
-
-   // Ao manter 2 Get com @PathVariable = returna ambiguidade (Não é uma boa
-   // pratica)
-
-   // com o @RequestParam url : http://localhost:8080/animes?name="anime name"
-
-   // Temos alguns atributos ex:
-   // @RequestParam(defaultValue = "") = nome padrão evitando null
-   // @RequestParam(required = false) = não é mais obrigatorio
-   // @RequestParam String name, @RequestParam String id) =
-   // url > http://localhost:8080/animes?name=anime-name&id=1
+   
    @GetMapping(path = "/{name}")
    public ResponseEntity<List<Anime>> findByName(@RequestParam String name) {
-      // @RequestParam(name = "name") = esse nome é opcional/ deixando sem o spring
-      // pega o nome do atributo
       return ResponseEntity.ok(animeService.findByName(name));
    }
 

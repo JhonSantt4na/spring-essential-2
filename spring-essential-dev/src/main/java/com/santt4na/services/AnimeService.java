@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.santt4na.domain.Anime;
+import com.santt4na.exceptions.BadRequestException;
 import com.santt4na.mapper.AnimeMapper;
 import com.santt4na.repository.AnimeRepository;
 import com.santt4na.requests.AnimePostRequestBody;
@@ -26,7 +27,7 @@ public class AnimeService {
 
    public Anime findByIdOrThrowBadRequestException(long id) {
       return animeRepository.findById(id)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anime not found"));
+            .orElseThrow(() -> new BadRequestException( "Anime not found"));
    }
 
    public Anime save(AnimePostRequestBody animePostRequestBody) {
