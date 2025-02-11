@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import com.santt4na.requests.AnimePutRequestBody;
 import com.santt4na.services.AnimeService;
 import com.santt4na.util.DateUtil;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,8 +51,8 @@ public class AnimeController {
       return ResponseEntity.ok(animeService.findByName(name));
    }
 
-   @PostMapping
-   public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody animePostRequestBody) {
+   @PostMapping // @Valid Para adicionar a nossa validação
+   public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody animePostRequestBody) {
       return new ResponseEntity<>(animeService.save(animePostRequestBody), HttpStatus.CREATED);
    }
 
