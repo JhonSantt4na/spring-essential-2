@@ -1,13 +1,14 @@
 package com.santt4na.requests;
 
+import org.hibernate.validator.constraints.URL;
+
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class AnimePostRequestBody {
    // @NotNull(message = "Anime name cannot be null")
-   @NotEmpty(message = "Anime name cannot be empty") // Já Olha o Null e empty
-   // @Url, @Numeros ...
+   @NotEmpty(message = "Anime name cannot be null or empty")
    private String name;
+
 }
