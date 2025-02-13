@@ -1,7 +1,5 @@
 package com.santt4na.requests;
 
-import org.hibernate.validator.constraints.URL;
-
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
