@@ -2,6 +2,8 @@ package com.santt4na.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,8 +22,11 @@ public class AnimeService {
 
    private final AnimeRepository animeRepository;
 
-   public List<Anime> listAll() {
-      return animeRepository.findAll();
+   public Page<Anime> listAll(Pageable pageable) {
+      return animeRepository.findAll(pageable); // findAll(pageable) Vem do PagingAndSortingRepository que nosso
+                                                // repository extends ...
+      // http://localhost:8080/animes?size=5 --> Pega somente 5 item
+      // http://localhost:8080/animes?size=5&page=1 --> pega a pagina 2
    }
 
    public Anime findByIdOrThrowBadRequestException(long id) {
@@ -31,13 +36,6 @@ public class AnimeService {
 
    @Transactional
    public Anime save(AnimePostRequestBody animePostRequestBody) {
-      // Vamos adiconar a dependencia do no pom.xml
-      /*
-       * validação manual:
-       * if (animePostRequestBody.getName() == null) {
-       * thorw new RuntimeException("Name cannot be null")
-       * }
-       */
       return animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));
    }
 
