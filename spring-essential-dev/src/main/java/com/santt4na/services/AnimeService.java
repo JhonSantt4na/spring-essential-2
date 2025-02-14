@@ -24,9 +24,13 @@ public class AnimeService {
 
    public Page<Anime> listAll(Pageable pageable) {
       return animeRepository.findAll(pageable); // findAll(pageable) Vem do PagingAndSortingRepository que nosso
-                                                // repository extends ...
+      // repository extends ...
       // http://localhost:8080/animes?size=5 --> Pega somente 5 item
       // http://localhost:8080/animes?size=5&page=1 --> pega a pagina 2
+   }
+
+   public List<Anime> listAllNonPageable() {
+      return animeRepository.findAll();
    }
 
    public Anime findByIdOrThrowBadRequestException(long id) {
@@ -53,4 +57,5 @@ public class AnimeService {
    public List<Anime> findByName(String name) {
       return animeRepository.findByName(name);
    }
+
 }
