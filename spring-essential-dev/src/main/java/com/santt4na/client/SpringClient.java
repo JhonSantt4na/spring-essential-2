@@ -4,7 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -35,5 +38,28 @@ public class SpringClient {
             });
 
       log.info(responseEntity.getBody().toString());
+
+      /*
+       * Post Uando o ForObject
+       * Anime kingdom = Anime.builder().name("Kingdom").build();
+       * Anime kingdomSaved = new
+       * RestTemplate().postForObject("http://localhost:8080/animes", kingdom,
+       * Anime.class);
+       * log.info("Saved Anime {}", kingdomSaved);
+       */
+
+      // Post Use the exchange
+      Anime shampdlo = Anime.builder().name("Samuray Shamploo").build();
+      ResponseEntity<Anime> shampdloSaved = new RestTemplate().exchange("http://localhost:8080/animes", HttpMethod.POST,
+            new HttpEntity<>(shampdlo, createdJsonHeaders()),
+            Anime.class);
+      log.info("Saved Anime {}", shampdloSaved);
+
+   }
+
+   private static HttpHeaders createdJsonHeaders() {
+      HttpHeaders httpHeaders = new HttpHeaders();
+      httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+      return httpHeaders;
    }
 }
