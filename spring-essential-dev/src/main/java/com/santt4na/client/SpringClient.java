@@ -40,21 +40,40 @@ public class SpringClient {
       log.info(responseEntity.getBody().toString());
 
       /*
-       * Post Uando o ForObject
        * Anime kingdom = Anime.builder().name("Kingdom").build();
        * Anime kingdomSaved = new
        * RestTemplate().postForObject("http://localhost:8080/animes", kingdom,
        * Anime.class);
        * log.info("Saved Anime {}", kingdomSaved);
+       * 
+       * //Post Use the exchange
+       * 
+       * Anime shampdlo = Anime.builder().name("Samuray Shamploo").build();
+       * ResponseEntity<Anime> shampdloSaved = new
+       * RestTemplate().exchange("http://localhost:8080/animes", HttpMethod.POST,
+       * new HttpEntity<>(shampdlo, createdJsonHeaders()),
+       * Anime.class);
+       * log.info("Saved Anime {}", shampdloSaved);
        */
 
-      // Post Use the exchange
-      Anime shampdlo = Anime.builder().name("Samuray Shamploo").build();
-      ResponseEntity<Anime> shampdloSaved = new RestTemplate().exchange("http://localhost:8080/animes", HttpMethod.POST,
-            new HttpEntity<>(shampdlo, createdJsonHeaders()),
-            Anime.class);
-      log.info("Saved Anime {}", shampdloSaved);
+      // Put Updated
 
+      Anime animeBeToUpdate = shampdloSaved.getBody();
+      animeBeToUpdate.setName("Samuray Shamploo 2");
+      ResponseEntity<Void> shampdloUpdated = new RestTemplate().exchange("http://localhost:8080/animes",
+            HttpMethod.PUT,
+            new HttpEntity<>(animeBeToUpdate, createdJsonHeaders()),
+            Void.class);
+      log.info(shampdloUpdated);
+
+      // Delete Deletando by ID
+      Anime animeBeToDelete = shampdloSaved.getBody();
+      animeBeToDelete.setName("Samuray Shamploo 2");
+      ResponseEntity<Void> shampdloDelete = new RestTemplate().exchange("http://localhost:8080/animes/{id}",
+            HttpMethod.DELETE,
+            new HttpEntity<>(animeBeToDelete, createdJsonHeaders()),
+            Void.class, animeBeToUpdate.getId());
+      log.info(shampdloDelete);
    }
 
    private static HttpHeaders createdJsonHeaders() {
