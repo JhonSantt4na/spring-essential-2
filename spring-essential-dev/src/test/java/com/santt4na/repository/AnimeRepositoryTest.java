@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.santt4na.domain.Anime;
 
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.log4j.Log4j2;
 
 //@DataJpaTest
@@ -76,8 +77,7 @@ public class AnimeRepositoryTest {
 
       List<Anime> animes = this.animeRepository.findByName(name);
 
-      Assertions.assertThat(animes).isNotEmpty();
-      Assertions.assertThat(animes).contains(animeSaved);
+      Assertions.assertThat(animes).isNotEmpty().contains(animeSaved);
    }
 
    @Test
@@ -88,9 +88,24 @@ public class AnimeRepositoryTest {
       Assertions.assertThat(animes).isEmpty();
    }
 
+   @Test
+   @DisplayName("Save Throw ConstraintViolationException when name is empty")
+   void save_ThrowConstraintViolationException_WhenNameIsEmpty() {
+
+      Anime anime = new Anime();
+      // Assertions.assertThatThrownBy(() -> this.animeRepository.save(anime))
+      // .isInstanceOf(ConstraintViolationException.class);
+
+      Assertions.assertThatExceptionOfType(ConstraintViolationException.class)
+            .isThrownBy(() -> this.animeRepository.save(anime))
+            .withMessageContaining("Anime name cannot be null or empty");
+
+   }
+
    private Anime createAnime() {
       return Anime.builder()
             .name("Boruto")
             .build();
    }
+
 }

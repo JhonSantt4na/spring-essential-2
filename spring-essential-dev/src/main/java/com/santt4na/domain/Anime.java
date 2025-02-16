@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,5 +24,6 @@ public class Anime {
    // Validação de Campos
    // @Column(nullable = false) Não funciona, não atualiza no DB
 
+   @NotEmpty(message = "Anime name cannot be null or empty")
    private String name;
 }
