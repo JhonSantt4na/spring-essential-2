@@ -1,6 +1,5 @@
 package com.santt4na.controllers;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -21,7 +20,6 @@ import com.santt4na.domain.Anime;
 import com.santt4na.requests.AnimePostRequestBody;
 import com.santt4na.requests.AnimePutRequestBody;
 import com.santt4na.services.AnimeService;
-import com.santt4na.util.DateUtil;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
