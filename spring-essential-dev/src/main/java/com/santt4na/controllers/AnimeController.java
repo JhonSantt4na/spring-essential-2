@@ -37,7 +37,8 @@ public class AnimeController {
    private final AnimeService animeService;
 
    // Pegando as duas Roles
-   @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+   // @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+   @PreAuthorize("hasRole('ADMIN')")
    // @PreAuthorize("hasRole('ADMIN')") // Pegando somente 1
    @GetMapping
    public ResponseEntity<Page<Anime>> list(Pageable pageable) {
