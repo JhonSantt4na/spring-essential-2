@@ -2,6 +2,7 @@ package com.santt4na.controllers;
 
 import java.util.List;
 
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,9 @@ import com.santt4na.requests.AnimePostRequestBody;
 import com.santt4na.requests.AnimePutRequestBody;
 import com.santt4na.services.AnimeService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -40,8 +44,10 @@ public class AnimeController {
    // @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
    @PreAuthorize("hasAuthority('ADMIN')")
    // @PreAuthorize("hasRole('ADMIN')") // Pegando somente 1
+   @Operation(summary = "List All Animes Pagineted", description = "the default size is 20, use the parameter to change the size default", tags = {
+         "anime" })
    @GetMapping
-   public ResponseEntity<Page<Anime>> list(Pageable pageable) {
+   public ResponseEntity<Page<Anime>> list(@ParameterObject Pageable pageable) { // @Parameter(hidden = true)
       return new ResponseEntity<>(animeService.listAll(pageable), HttpStatus.OK);
    }
 
@@ -52,6 +58,11 @@ public class AnimeController {
    }
 
    @GetMapping(path = "/{id}")
+   @ApiResponses(value = {
+         @ApiResponse(responseCode = "204", description = "Succecfull Operation"),
+         @ApiResponse(responseCode = "404", description = "when anime not exist in the DB")
+
+   })
    public ResponseEntity<Anime> findById(@PathVariable long id) {
       return ResponseEntity.ok(animeService.findByIdOrThrowBadRequestException(id));
    }
