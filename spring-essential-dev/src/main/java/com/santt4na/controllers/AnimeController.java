@@ -38,13 +38,14 @@ public class AnimeController {
 
    // Pegando as duas Roles
    // @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-   @PreAuthorize("hasRole('ADMIN')")
+   @PreAuthorize("hasAuthority('ADMIN')")
    // @PreAuthorize("hasRole('ADMIN')") // Pegando somente 1
    @GetMapping
    public ResponseEntity<Page<Anime>> list(Pageable pageable) {
       return new ResponseEntity<>(animeService.listAll(pageable), HttpStatus.OK);
    }
 
+   @PreAuthorize("hasRole('ADMIN')")
    @GetMapping(path = "/all")
    public ResponseEntity<List<Anime>> listAll() {
       return new ResponseEntity<>(animeService.listAllNonPageable(), HttpStatus.OK);

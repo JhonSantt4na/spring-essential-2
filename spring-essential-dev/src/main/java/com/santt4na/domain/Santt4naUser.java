@@ -29,19 +29,16 @@ public class Santt4naUser implements UserDetails {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
 
-   // Validação de Campos
-   // @Column(nullable = false) Não funciona, não atualiza no DB
-
    @NotEmpty(message = "Anime name cannot be null or empty")
    private String name;
 
    private String username;
    private String password;
-   private String authorites; // Role ADMIN, Role
+   private String authorities; // Role ADMIN, Role
 
    @Override
    public Collection<? extends GrantedAuthority> getAuthorities() {
-      return Arrays.stream(authorites.split(","))
+      return Arrays.stream(authorities.split(","))
             .map(SimpleGrantedAuthority::new)
             .collect(Collectors.toList());
    }
@@ -74,10 +71,5 @@ public class Santt4naUser implements UserDetails {
    @Override
    public boolean isEnabled() {
       return true;
-   }
-
-   public Object getRole() {
-      // TODO Auto-generated method stub
-      throw new UnsupportedOperationException("Unimplemented method 'getRole'");
    }
 }

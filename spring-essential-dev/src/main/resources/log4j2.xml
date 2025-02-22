@@ -7,7 +7,13 @@
     </Appenders>
 
     <Loggers>
-        <Root level="debug">
+        <!-- Configuração específica para o pacote com.santt4na -->
+        <Logger name="com.santt4na" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <!-- Configuração global -->
+        <Root level="warn">
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>
