@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @SpringBootApplication
 public class SpringEssentialDevApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(SpringEssentialDevApplication.class, args);
 	}

@@ -21,6 +21,11 @@
     </properties>
 
     <dependencies>
+        <!-- Spring Actuator -->
+        <dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-actuator</artifactId>
+	    </dependency>
         <!-- Spring OpenIa Documentation -->
         <dependency>
             <groupId>org.springdoc</groupId>
