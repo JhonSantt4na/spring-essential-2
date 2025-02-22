@@ -8,10 +8,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "users")
 public class Santt4naUser implements UserDetails {
 
    @Id
@@ -33,12 +36,16 @@ public class Santt4naUser implements UserDetails {
    private String name;
 
    private String username;
-   private String password;
-   private String authorities; // Role ADMIN, Role
 
-   @Override
+   @Column(nullable = false)
+   private String password;
+
+   @Column(nullable = false)
+   private String role; // Role ADMIN, Role
+
+   @Override // Converte a role para GrantedAuthority
    public Collection<? extends GrantedAuthority> getAuthorities() {
-      return Arrays.stream(authorities.split(","))
+      return Arrays.stream(role.split(","))
             .map(SimpleGrantedAuthority::new)
             .collect(Collectors.toList());
    }
