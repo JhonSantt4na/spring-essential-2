@@ -21,6 +21,8 @@ public class SecurityConfig {
                                                 "/login", // Permite acesso ao endpoint de login
                                                 "/logout" // Permite acesso ao endpoint de logout
                                     ).permitAll()
+                                    .requestMatchers("/actuator/**").permitAll()
+                                    .requestMatchers("/actuator/prometheus").permitAll()
                                     .anyRequest().authenticated())
                         .formLogin(form -> form // Remove .loginPage("/login") para usar a página padrão
                                     .defaultSuccessUrl("/animes", true) // Redireciona para um endpoint válido após
