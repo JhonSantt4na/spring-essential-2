@@ -19,7 +19,15 @@ services:
       - "--config.file=/etc/prometheus/prometheus.yml"
     ports:
       - "9090:9090"
-    extra_hosts:  # Garanta que esta seção está presente
-      - "host.docker.internal:host-gateway"  # Mapeia para o IP do host
+    extra_hosts:  
+      - "host.docker.internal:host-gateway" 
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: always
+    ports:
+      - "3000:3000" 
+
 volumes:
   santt4na_data:
